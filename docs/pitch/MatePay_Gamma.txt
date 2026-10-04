@@ -1,0 +1,124 @@
+MatePay
+
+USDC checkout for Argentina
+
+Price in pesos. Request payment in USDC.
+
+QR payments and readable aliases, with network fees sponsored by MatePay as the next development milestone.
+
+Hackathon prototype. Solana Devnet only.
+
+---
+
+The checkout problem
+
+Our working hypothesis: small merchants and customers who already use USDC need a simpler checkout experience.
+
+- Merchants enter prices in Argentine pesos.
+- Customers need to understand the USDC amount and recognize the recipient.
+- Holding SOL just to pay a network fee adds another step.
+
+Merchant interviews and usability tests are still pending.
+
+---
+
+The MatePay experience
+
+A merchant enters an ARS amount and generates a QR request with a USDC equivalent.
+
+The customer reviews the recipient and amount before approving payment.
+
+Readable aliases help identify the destination. The planned fee payer covers network fees in SOL.
+
+Current stage: an interactive checkout simulation.
+
+---
+
+Merchant checkout
+
+The prototype includes a numeric keypad, currency conversion and QR generation.
+
+Illustrative example:
+
+ARS 4,500 / ARS 1,240 per USDC = 3.63 USDC after rounding.
+
+The rate service requests DolarAPI data and uses fallback values if requests fail.
+
+This example is an estimate, not an executable exchange quote. The QR integration still needs wallet validation.
+
+---
+
+Customer checkout
+
+The current interface accepts a demo alias or a pasted payment URL and shows both amounts.
+
+It simulates a customer with USDC and 0 SOL, then updates the displayed balance and receipt.
+
+Next: connect Phantom on Devnet, add camera scanning and require wallet approval for a sponsored token transfer.
+
+---
+
+Solana payment design
+
+Proposed Devnet flow:
+
+1. MatePay creates a payment request with a valid recipient and order reference.
+2. The customer's wallet signs to authorize the token transfer.
+3. MatePay signs as fee payer to cover the network fee.
+4. The backend submits the transaction and checks confirmation before marking the order paid.
+
+The customer keeps control of their tokens.
+
+---
+
+Prototype status
+
+Implemented in the source:
+
+- Merchant and customer screens, plus a synchronized demo.
+- Rate fetching with fallbacks and a QR image generator.
+- An in-memory alias API and a placeholder fee payer endpoint.
+
+Still pending: wallet integration, valid QR data, sponsored transfers and confirmation through Solana RPC.
+
+Current receipts and payment timing come from simulation.
+
+---
+
+First users and validation
+
+Proposed starting segment: independent cafés and small shops serving customers who already hold USDC.
+
+Pilot hypothesis: an ARS price and a familiar recipient name make USDC checkout easier to understand.
+
+Planned tests measure completion, recipient recognition and confusion about fees.
+
+A merchant subscription is a business model hypothesis. Pricing, demand and sponsorship costs remain unvalidated.
+
+---
+
+The team
+
+Montero Mauricio
+Full Stack and Web3 Lead
+Backend, payment transactions and fee sponsorship.
+
+Gerez Juan Pablo
+Frontend Lead
+Wallet connection, QR scanning and payment components.
+
+Robles Máximo
+Multimedia Designer and Full Stack Learner
+User experience, currency display and demo video.
+
+---
+
+Next milestone
+
+One independently verifiable payment on Solana Devnet.
+
+Success means the customer starts with 0 SOL, approves a test token transfer and the merchant receives the expected amount. MatePay covers the network fee and both screens show the confirmed transaction.
+
+Then we will test checkout with potential users and record the demo in English.
+
+We are seeking merchant feedback and technical review of the sponsored payment flow.
